@@ -1,0 +1,27 @@
+{
+  "name": "@brrinta/phaxio-official-ts",
+  "version": "0.0.1",
+  "description": "The typescript definition of Node.JS library for Phaxio API v2.1.0. https://phaxio.com",
+  "scripts": {},
+  "keywords": [
+    "phaxio",
+    "fax",
+    "phaxio typescript",
+    "phaxio ts"
+  ],
+  "author": "brrinta <brrinta@gmail.com>",
+  "dependencies": {
+    "phaxio-official": "1.2.2"
+  },
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brrinta/phaxio-official-ts.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brrinta/phaxio-official-ts/issues"
+  },
+  "homepage": "https://github.com/brrinta/phaxio-official-ts#readme"
+}
