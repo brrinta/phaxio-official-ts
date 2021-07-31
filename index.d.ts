@@ -28,6 +28,36 @@ export interface Public {
     })
 }
 
+export interface FaxResponse {
+    id: number,
+    direction: string,
+    num_pages: number,
+    status: string,
+    is_test: boolean,
+    created_at: string,
+    caller_id: string,
+    from_number: string,
+    completed_at: string,
+    cost: number,
+    tags: {
+        order_id: string
+    },
+    recipients: Array<{
+        phone_number: string,
+        status: string,
+        retry_count: number,
+        completed_at: string,
+        bitrate: number,
+        resolution: number,
+        error_type: string,
+        error_id: string,
+        error_message: string
+    }>,
+    to_number: string,
+    error_id: string,
+    error_type: string,
+    error_message: string
+}
 
 export interface AgentOptions {
     minVersion: string | 'TLSv1.2'
@@ -44,7 +74,7 @@ export interface Fax {
         }
     }>
 
-    resend(callback_url: string): Promise<{
+    resend(callback_url?: string): Promise<{
         success: boolean,
         message: string,
         data: {
@@ -55,36 +85,7 @@ export interface Fax {
     getInfo(): Promise<{
         success: boolean,
         message: string,
-        data: {
-            id: number,
-            direction: string,
-            num_pages: number,
-            status: string,
-            is_test: boolean,
-            created_at: string,
-            caller_id: string,
-            from_number: string,
-            completed_at: string,
-            cost: number,
-            tags: {
-                order_id: string
-            },
-            recipients: Array<{
-                phone_number: string,
-                status: string,
-                retry_count: number,
-                completed_at: string,
-                bitrate: number,
-                resolution: number,
-                error_type: string,
-                error_id: string,
-                error_message: string
-            }>,
-            to_number: string,
-            error_id: string,
-            error_type: string,
-            error_message: string
-        }
+        data: FaxResponse
     }>
 
     getFile(thumbnail: string): Promise<any>
@@ -103,7 +104,7 @@ export interface Fax {
 export interface Faxes {
     constructor(apiKey, apiSecret, url, agentOptions)
 
-    cancel(id: string): Promise<{
+    cancel(id: number): Promise<{
         success: boolean,
         message: string,
         data: {
@@ -111,7 +112,7 @@ export interface Faxes {
         }
     }>
 
-    resend(options: { id: string, callback_url: string }): Promise<{
+    resend(options: { id: string, callback_url?: string }): Promise<{
         success: boolean,
         message: string,
         data: {
@@ -127,39 +128,10 @@ export interface Faxes {
     getInfo(id): Promise<{
         success: boolean,
         message: string,
-        data: {
-            id: number,
-            direction: string,
-            num_pages: number,
-            status: string,
-            is_test: boolean,
-            created_at: string,
-            caller_id: string,
-            from_number: string,
-            completed_at: string,
-            cost: number,
-            tags: {
-                order_id: string
-            },
-            recipients: Array<{
-                phone_number: string,
-                status: string,
-                retry_count: number,
-                completed_at: string,
-                bitrate: number,
-                resolution: number,
-                error_type: string,
-                error_id: string,
-                error_message: string
-            }>,
-            to_number: string,
-            error_id: string,
-            error_type: string,
-            error_message: string
-        }
+        data: FaxResponse
     }>
 
-    getFile(options: { id: string, thumbnail: string }): Promise<any>
+    getFile(options: { id?: number, thumbnail?: string }): Promise<any>
 
     deleteFile(id): Promise<{
         success: boolean,
@@ -168,16 +140,16 @@ export interface Faxes {
 
     create(options: {
         to: string,
-        file: string,
-        content_url: string,
-        header_text: string,
-        batch_delay: string,
-        batch_collision_avoidance: string,
-        callback_url: string,
-        cancel_timeout: string,
-        tags: string,
-        caller_id: string,
-        test_fail: string,
+        file?: string,
+        content_url?: string,
+        header_text?: string,
+        batch_delay?: string,
+        batch_collision_avoidance?: string,
+        callback_url?: string,
+        cancel_timeout?: string,
+        tags?: string,
+        caller_id?: string,
+        test_fail?: string,
     }): Promise<Fax>
 
     testReceive(options: {
@@ -190,49 +162,18 @@ export interface Faxes {
     }>
 
     listFaxes(options: {
-        created_before: string,
-        created_after: string,
-        direction: string,
-        status: string,
-        phone_number: string,
-        tags: string,
-        per_page: string,
-        page: string,
+        created_before?: string,
+        created_after?: string,
+        direction?: string,
+        status?: string,
+        phone_number?: string,
+        tags?: string,
+        per_page?: string,
+        page?: number,
     }): Promise<{
         success: boolean,
         message: string,
-        data: Array<{
-            id: number,
-            direction: string,
-            num_pages: number,
-            status: string,
-            is_test: boolean,
-            created_at: string,
-            caller_id: string,
-            from_number: string,
-            completed_at: string,
-            cost: number,
-            tags: {
-                order_id: string
-            },
-            recipients: [
-                {
-                    phone_number: string,
-                    status: string,
-                    retry_count: number,
-                    completed_at: string,
-                    bitrate: number,
-                    resolution: number,
-                    error_type: string,
-                    error_id: string,
-                    error_message: string
-                }
-            ],
-            to_number: string,
-            error_id: string,
-            error_type: string,
-            error_message: string
-        }>,
+        data: Array<FaxResponse>,
         paging: {
             total: number,
             per_page: number,
@@ -298,7 +239,7 @@ export interface PhoneNumber {
         }
     }>
 
-    provisionNumber(options: { country_code: number, area_code: number, callback_url: string }): Promise<{
+    provisionNumber(options: { country_code: number, area_code: number, callback_url?: string }): Promise<{
         success: boolean,
         message: string,
         data: {
