@@ -1,3 +1,4 @@
+// @ts-nocheck
 export interface iPhaxio {
     public: Public;
     faxes: Faxes
@@ -120,12 +121,12 @@ export interface Faxes {
         }
     }>
 
-    testDelete(id): Promise<{
+    testDelete(id:any): Promise<{
         success: boolean,
         message: string
     }>
 
-    getInfo(id): Promise<{
+    getInfo(id: any): Promise<{
         success: boolean,
         message: string,
         data: FaxResponse
@@ -133,7 +134,7 @@ export interface Faxes {
 
     getFile(options: { id?: number, thumbnail?: string }): Promise<any>
 
-    deleteFile(id): Promise<{
+    deleteFile(id:any): Promise<{
         success: boolean,
         message: string
     }>
