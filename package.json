@@ -1,6 +1,6 @@
 {
   "name": "@brrinta/phaxio-official-ts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The typescript definition of Node.JS library for Phaxio API v2.1.0. https://phaxio.com",
   "scripts": {},
   "keywords": [
