@@ -1,14 +1,4 @@
-declare module 'phaxio-official' {
-    export = Phaxio
-}
-
-export class Phaxio {
-    apiKey: string;
-    apiSecret: string;
-
-    url: string;
-    agentOptions: AgentOptions;
-
+export interface iPhaxio {
     public: Public;
     faxes: Faxes
     account: Account
@@ -19,7 +9,7 @@ export class Phaxio {
 }
 
 
-export class Public {
+export interface Public {
     constructor(url: string, agentOptions: AgentOptions)
 
 
@@ -43,7 +33,7 @@ export interface AgentOptions {
     minVersion: string | 'TLSv1.2'
 }
 
-export class Fax {
+export interface Fax {
     constructor(apiKey, apiSecret, url, success, message, data, agentOptions)
 
     cancel(): Promise<{
@@ -110,7 +100,7 @@ export class Fax {
     }>
 }
 
-export class Faxes {
+export interface Faxes {
     constructor(apiKey, apiSecret, url, agentOptions)
 
     cancel(id: string): Promise<{
@@ -251,13 +241,13 @@ export class Faxes {
     }>
 }
 
-export class Account {
+export interface Account {
     constructor(apiKey: string, apiSecret: string, url: string, agentOptions: AgentOptions)
 
     status()
 }
 
-export class PhaxCode {
+export interface PhaxCode {
     constructor(apiKey: string, apiSecret: string, url: string, agentOptions: AgentOptions)
 
     create(options: { metadata: string, type: string })
@@ -265,7 +255,7 @@ export class PhaxCode {
     get(options: { id: string, type: string })
 }
 
-export class PhoneNumber {
+export interface PhoneNumber {
     constructor(apiKey: string, apiSecret: string, url: string, agentOptions: AgentOptions)
 
     releaseNumber(number): Promise<{
